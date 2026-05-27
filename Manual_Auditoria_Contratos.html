@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Utilização - Auditoria e Conciliação Automática de Contratos</title>
+    
+    <!-- Google Fonts: Outfit (títulos) e Inter (textos) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Variáveis de Cores Oficiais PRC Empreendimentos */
+        :root {
+            --prc-turquoise: #31b7bc;
+            --prc-wine: #3d303a;
+            --prc-wine-light: #4e3e4a;
+            --prc-gray-dark: #2b2d42;
+            --prc-gray-light: #f4f7f6;
+            --prc-white: #ffffff;
+            
+            /* Cores de Alerta */
+            --alert-success-bg: #e6f7f0;
+            --alert-success-border: #2ecc71;
+            --alert-success-text: #1b5e3b;
+            
+            --alert-warning-bg: #fffcf0;
+            --alert-warning-border: #f1c40f;
+            --alert-warning-text: #7f6000;
+            
+            --alert-danger-bg: #fdf2f2;
+            --alert-danger-border: #e74c3c;
+            --alert-danger-text: #962d22;
+            
+            --alert-info-bg: #eef9fa;
+            --alert-info-border: #31b7bc;
+            --alert-info-text: #1d6e71;
+        }
+
+        /* Estilização Geral */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--prc-gray-dark);
+            background-color: var(--prc-gray-light);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container do Manual */
+        .manual-wrapper {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: var(--prc-white);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            border: 1px solid rgba(61, 48, 58, 0.08);
+        }
+
+        /* Cabeçalho Premium */
+        .manual-header {
+            background-color: var(--prc-wine);
+            background-image: linear-gradient(135deg, var(--prc-wine) 0%, var(--prc-wine-light) 100%);
+            padding: 40px;
+            color: var(--prc-white);
+            border-bottom: 5px solid var(--prc-turquoise);
+            position: relative;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .brand-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-logo span {
+            color: var(--prc-turquoise);
+        }
+
+        .document-tag {
+            background: rgba(49, 183, 188, 0.15);
+            border: 1px solid var(--prc-turquoise);
+            color: var(--prc-turquoise);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .manual-header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .manual-header p {
+            font-size: 16px;
+            color: #d1c7cf;
+            margin: 0;
+            font-weight: 300;
+        }
+
+        /* Corpo do Documento */
+        .manual-body {
+            padding: 40px;
+        }
+
+        /* Títulos de Seção */
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--prc-wine);
+            font-size: 22px;
+            font-weight: 700;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid rgba(61, 48, 58, 0.08);
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 20px;
+            background-color: var(--prc-turquoise);
+            border-radius: 3px;
+        }
+
+        h3 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--prc-wine-light);
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 16px;
+            color: #4a4a4a;
+            font-size: 15px;
+            text-align: justify;
+        }
+
+        strong {
+            color: var(--prc-wine);
+            font-weight: 600;
+        }
+
+        /* Listas Estilizadas */
+        ul, ol {
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: #4a4a4a;
+            font-size: 15px;
+        }
+
+        /* Blocos de Destaque */
+        .highlight-box {
+            padding: 18px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 14px;
+            border-left: 5px solid;
+        }
+
+        .highlight-box strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+
+        .highlight-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .box-warning {
+            background-color: var(--alert-warning-bg);
+            border-color: var(--alert-warning-border);
+            color: var(--alert-warning-text);
+        }
+        .box-warning strong {
+            color: #7f6000;
+        }
+
+        .box-danger {
+            background-color: var(--alert-danger-bg);
+            border-color: var(--alert-danger-border);
+            color: var(--alert-danger-text);
+        }
+        .box-danger strong {
+            color: #962d22;
+        }
+
+        .box-info {
+            background-color: var(--alert-info-bg);
+            border-color: var(--alert-info-border);
+            color: var(--alert-info-text);
+        }
+        .box-info strong {
+            color: #1d6e71;
+        }
+
+        .box-success {
+            background-color: var(--alert-success-bg);
+            border-color: var(--alert-success-border);
+            color: var(--alert-success-text);
+        }
+        .box-success strong {
+            color: #1b5e3b;
+        }
+
+        /* Tabelas Estilizadas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+            text-align: left;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(61, 48, 58, 0.08);
+        }
+
+        th {
+            background-color: var(--prc-wine);
+            color: var(--prc-white);
+            font-weight: 600;
+            padding: 12px 16px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(61, 48, 58, 0.08);
+            color: #4a4a4a;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafbfc;
+        }
+
+        /* Badges de Status */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .status-badge-active {
+            background-color: #e6f7f0;
+            color: #2ecc71;
+        }
+
+        .status-badge-warning {
+            background-color: #fffcf0;
+            color: #f1c40f;
+        }
+
+        .status-badge-critical {
+            background-color: #fdf2f2;
+            color: #e74c3c;
+        }
+
+        /* Passo a Passo Visual */
+        .step-container {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 30px;
+            border-left: 2px dashed rgba(49, 183, 188, 0.3);
+        }
+
+        .step-container:last-of-type {
+            border-left: none;
+            margin-bottom: 10px;
+        }
+
+        .step-number {
+            position: absolute;
+            left: -16px;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            background-color: var(--prc-turquoise);
+            color: var(--prc-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            box-shadow: 0 0 0 4px var(--prc-white);
+        }
+
+        .step-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--prc-wine);
+            margin-bottom: 8px;
+        }
+
+        .sienge-path {
+            background-color: #f0f2f1;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--prc-wine);
+            display: inline-block;
+            margin: 4px 0 10px 0;
+            border: 1px solid rgba(61, 48, 58, 0.08);
+        }
+
+        /* Rodapé do Manual */
+        .manual-footer {
+            background-color: var(--prc-gray-light);
+            border-top: 1px solid rgba(61, 48, 58, 0.08);
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #777777;
+        }
+
+        .footer-left p, .footer-right p {
+            margin: 0;
+            text-align: left;
+        }
+
+        .footer-right {
+            text-align: right;
+        }
+
+        .footer-right strong {
+            color: var(--prc-turquoise);
+        }
+
+        /* Estilos Responsivos */
+        @media (max-width: 768px) {
+            .manual-wrapper {
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            .manual-header, .manual-body, .manual-footer {
+                padding: 20px;
+            }
+            .header-top {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .manual-footer {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .footer-right {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="manual-wrapper">
+        <!-- CABEÇALHO -->
+        <header class="manual-header">
+            <div class="header-top">
+                <div class="brand-logo">PRC <span>EMPREENDIMENTOS</span></div>
+                <div class="document-tag">Controladoria Geral (PCO)</div>
+            </div>
+            <h1>Manual de Utilização</h1>
+            <p>Sistema de Auditoria e Conciliação Automática de Contratos (Sienge ERP & Module AuditoriaContratos)</p>
+        </header>
+
+        <!-- CORPO DO DOCUMENTO -->
+        <main class="manual-body">
+            
+            <!-- INTRODUÇÃO -->
+            <section>
+                <h2>Introdução</h2>
+                <p>
+                    A saúde financeira e o controle físico-financeiro das obras da <strong>PRC Empreendimentos</strong> exigem um rigor absoluto no acompanhamento de contratos de fornecedores e prestadores de serviços. O <strong>Sistema de Auditoria e Conciliação Automática de Contratos</strong> foi desenvolvido para otimizar essa rotina, automatizando o cruzamento entre as medições físicas executadas no canteiro de obras e os lançamentos de faturamento no setor de Contas a Pagar.
+                </p>
+                <p>
+                    A utilização desta ferramenta de controladoria permite aos engenheiros de obra, gestores de contratos e profissionais de Planejamento e Controle de Obras (PCO) identificar, de forma instantânea e preditiva: duplicidades de faturamento, pagamentos antecipados sem medição física correspondente e desvios de saldos contratuais. Este manual descreve os pré-requisitos e o passo a passo operacional para extração de relatórios no ERP Sienge e operação da inteligência de auditoria.
+                </p>
+            </section>
+
+            <!-- PRÉ-REQUISITOS -->
+            <section>
+                <h2>Pré-requisitos Operacionais</h2>
+                <p>Antes de iniciar o processo de auditoria, certifique-se de possuir:</p>
+                <ul>
+                    <li><strong>Credenciais de Acesso:</strong> Usuário ativo no ERP Sienge com permissões de consulta nos módulos de <em>Suprimentos</em> e <em>Financeiro</em>.</li>
+                    <li><strong>Acesso ao App de Auditoria:</strong> Acesso à plataforma interna <strong>AuditoriaContratos (Dashboard de Controladoria de Obras da PRC)</strong>.</li>
+                    <li><strong>Identificação do Alvo:</strong> Número do Contrato (ex: <code>CT/139</code>) e o código/nome do fornecedor correspondente (ex: <code>3564 - RISSI FACHADAS E ESQUADRIAS LTDA</code>) a ser auditado.</li>
+                </ul>
+            </section>
+
+            <!-- GUIA PASSO A PASSO -->
+            <section>
+                <h2>Guia Passo a Passo</h2>
+                
+                <h3>Módulo 1: Extração de Dados no ERP Sienge</h3>
+                <p>Para abastecer a inteligência do App de Auditoria, é necessário extrair dois relatórios fundamentais do Sienge. Siga as etapas abaixo com atenção às configurações de filtros.</p>
+
+                <!-- PASSO 1 -->
+                <div class="step-container">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Extração do Relatório de Análise de Contrato</div>
+                    <div class="sienge-path">Módulo Suprimentos &gt; Contratos e Medições &gt; Contratos &gt; Cadastros</div>
+                    <p>
+                        Esta etapa extrai o saldo físico do contrato, o escopo contratado, os preços unitários e as medições físicas já aprovadas na obra.
+                    </p>
+                    <ol>
+                        <li>Acesse o caminho indicado acima no menu lateral do Sienge.</li>
+                        <li>No painel de <strong>Consulta de Contratos</strong>, preencha os filtros obrigatórios e de segurança:
+                            <ul>
+                                <li><strong>Documento:</strong> Selecione <code>CT - CONTRATO</code>.</li>
+                                <li><strong>Fornecedor:</strong> Digite o código do fornecedor (ex: <code>3564</code>) ou busque por <code>RISSI FACHADAS E ESQUADRIAS LTDA</code>.</li>
+                                <li><strong>Data Inicial:</strong> Configure para <code>01/01/2021</code>.</li>
+                                <li><strong>Data Final (Margem Ampla):</strong> Insira um prazo futuro estendido, como <code>23/10/2029</code>, para garantir que medições com cronograma alongado ou aditivos futuros não sejam omitidas da busca.</li>
+                                <li><strong>Situação de autorização dos contratos:</strong> Defina como <code>Todos</code>.</li>
+                            </ul>
+                        </li>
+                        <li>Clique no botão <strong>CONSULTAR</strong> no canto direito da tela de filtros.</li>
+                        <li>Na tabela de resultados, localize o contrato desejado (ex: <code>CT/139</code>). Na coluna de <strong>Ações</strong>, clique no segundo ícone: <strong>Emitir relatório de análise do contrato</strong> (ícone de folha de papel com gráfico).</li>
+                        <li>Salve o arquivo gerado em formato <strong>PDF</strong> no seu computador.</li>
+                    </ol>
+                    <div class="highlight-box box-info">
+                        <strong>Dica de Produtividade:</strong> O Sienge permite salvar o filtro em cache marcando a opção <em>"Salvar filtro em cache"</em>. Isso agiliza consultas recorrentes ao mesmo fornecedor.
+                    </div>
+                </div>
+
+                <!-- PASSO 2 -->
+                <div class="step-container">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Extração do Contas a Pagar por Credor</div>
+                    <div class="sienge-path">Módulo Financeiro &gt; Contas a Pagar &gt; Relatórios &gt; Contas a Pagar</div>
+                    <p>
+                        Esta etapa extrai a rastreabilidade fiscal e financeira, identificando as Notas Fiscais emitidas, retenções técnicas, impostos retidos e parcelas pagas ou a pagar.
+                    </p>
+                    <ol>
+                        <li>Acesse o menu do módulo Financeiro conforme o caminho indicado.</li>
+                        <li>Na tela <strong>RELATÓRIO DE CONTAS A PAGAR</strong>, configure os parâmetros de controle:
+                            <ul>
+                                <li><strong>Vencimento (Parâmetro Crítico):</strong> Insira uma margem extremamente ampla e retroativa, por exemplo, de <code>01/05/2020</code> a <code>31/05/2029</code>. Isso é vital para que o motor do app de auditoria rastreie adiantamentos financeiros antigos e notas com vencimentos muito alongados.</li>
+                                <li><strong>Credor:</strong> Digite o mesmo código de fornecedor do passo anterior (ex: <code>3564</code>) para carregar <code>RISSI FACHADAS E ESQUADRIAS LTDA</code>.</li>
+                                <li><strong>Ordem:</strong> Mude obrigatoriamente para a opção <code>Credor</code> no campo de ordenação.</li>
+                            </ul>
+                        </li>
+                        <li>Clique no botão <strong>VISUALIZAR</strong> para gerar o relatório consolidado na tela e, em seguida, exporte ou salve o arquivo em formato <strong>PDF</strong>.</li>
+                        <li>Salve o arquivo PDF gerado em uma pasta local de fácil acesso.</li>
+                    </ol>
+                    <div class="highlight-box box-warning">
+                        <strong>Atenção Controladoria:</strong> Não utilize filtros de empresas ou centros de custo específicos nesta etapa. O fornecedor pode possuir faturamentos pulverizados em diferentes SPEs (Sociedades de Propósito Específico) do Grupo PRC. O motor de auditoria fará a consolidação inteligente desses CNPJs automaticamente.
+                    </div>
+                </div>
+
+                <h3>Módulo 2: Operação no App de Auditoria & Conciliação</h3>
+                <p>Com os arquivos extraídos do ERP Sienge, o processo de auditoria é 100% automatizado pela nossa plataforma interna.</p>
+
+                <!-- PASSO 3 -->
+                <div class="step-container">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Upload dos Arquivos no Dashboard</div>
+                    <p>
+                        A interface do app <strong>AuditoriaContratos</strong> foi projetada de forma intuitiva, operando em modelo Drag & Drop (arrastar e soltar).
+                    </p>
+                    <ol>
+                        <li>Abra o link do painel de <strong>Auditoria & Conciliação Automática</strong> da Controladoria de Obras da PRC.</li>
+                        <li>Na tela inicial, você visualizará dois cards tracejados para upload de arquivos:
+                            <ul>
+                                <li><strong>Painel Esquerdo (Relatório de Análise de Contrato):</strong> Arraste e solte o arquivo <strong>PDF</strong> extraído no Passo 1 (ou clique no card para selecionar). O sistema identificará os dados de saldos, itens e medições físicas.</li>
+                                <li><strong>Painel Direito (Contas a Pagar por Credor):</strong> Arraste e solte o arquivo <strong>PDF</strong> extraído no Passo 2. O sistema mapeará faturamentos, notas fiscais e retenções de compromissos. (Nota: O suporte a planilhas no formato <strong>CSV</strong> está planejado para uma versão futura do sistema).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Aguarde a validação:</strong> O status de cada painel mudará de <em>"Aguardando"</em> para <em>"Processado com Sucesso"</em>.</li>
+                    </ol>
+                    <div class="highlight-box box-success">
+                        <strong>Ambiente de Demonstração e Treinamento:</strong> Se desejar testar a ferramenta sem extrair dados reais imediatos, clique no botão central azul <strong>"Carregar Dados de Exemplo (Contrato CT/139)"</strong>. O sistema importará automaticamente a base homologada da Rissi Fachadas contida na pasta de modelos.
+                    </div>
+                </div>
+
+                <!-- PASSO 4 -->
+                <div class="step-container">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Análise e Interpretação do Relatório Consolidado</div>
+                    <p>
+                        Após o processamento dos arquivos, a tela de resultados do <strong>Relatório Consolidado de Controladoria</strong> é exibida instantaneamente.
+                    </p>
+                    <ol>
+                        <li><strong>Verificação Cadastral:</strong> Valide no cabeçalho se o contrato carregado é o correto. No caso padrão, verifique a indicação de Contrato <code>CT/139</code>, Fornecedor <code>3564 - RISSI FACHADAS E ESQUADRIAS LTDA</code>, CNPJ <code>02.040.471/0001-59</code>, Centro de Custo <code>82 - Nest 635 - Custos Diretos - Empresa 06</code>, Unidade Construtiva <code>2 - TORRE</code> e a assinatura de liberação técnica por <code>Matheus Katsuo Nakata Correa</code>.</li>
+                        <li><strong>Monitoramento de KPIs Físico-Financeiros:</strong>
+                            <p style="margin-top: 10px; margin-bottom: 10px;">Analise com cautela os três cartões principais de controle financeiro:</p>
+                            <ul>
+                                <li><strong>Valor Total do Contrato (R$ 7.540.000,00):</strong> Representa o valor global acordado e homologado para a execução completa das esquadrias da torre.</li>
+                                <li><strong>Total Já Medido (R$ 7.350.000,00):</strong> Aponta que <strong>97.48%</strong> do escopo físico das esquadrias já foi medido, conferido e aprovado pela engenharia de campo.</li>
+                                <li><strong>Saldo Contratual a Medir (R$ 190.000,00):</strong> Mostra o valor residual e limite físico-financeiro de <strong>2.52%</strong> que ainda resta a ser executado na obra.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- ENTENDENDO OS RESULTADOS E ALERTAS -->
+            <section>
+                <h2>Entendendo os Resultados e Tratamento de Desvios</h2>
+                <p>
+                    A inteligência do App de Auditoria realiza análises preditivas cruzando datas de emissão fiscal com datas de medição física. O principal ponto de atenção para os profissionais de PCO e gestores de contrato está na seção de <strong>"Alertas Críticos de Controladoria"</strong>.
+                </p>
+
+                <!-- CASO REAL DA NFSE 19910 -->
+                <div class="highlight-box box-danger">
+                    <strong>⚠️ CASO REAL DE AUDITORIA: ALERTA DE DUPLICIDADE NFSE 19910 (MEDIÇÃO 28)</strong>
+                    <p>
+                        No cruzamento de dados do contrato de esquadrias <strong>CT/139</strong> com o Contas a Pagar, o aplicativo identificou <strong>2 Ocorrências Críticas</strong> de inconformidade fiscal-financeira.
+                    </p>
+                    <p>
+                        <strong>O Desvio Identificado pelo Sistema:</strong> A medição foi faturada e consta ativa no contas a pagar em múltiplos CNPJs (lançamentos paralelos):
+                    </p>
+                    <ul>
+                        <li><strong>NFSE 19910-6</strong> vinculada à <em>NEST 635</em> (Empresa 06) no valor de <strong>R$ 45.000,00</strong>.</li>
+                        <li><strong>NFSE 19910</strong> vinculada à <em>PRC Empreendimentos</em> (Empresa 01) no valor de <strong>R$ 45.000,00</strong>.</li>
+                    </ul>
+                    <p>
+                        O motor lógico detectou que a nota de <strong>R$ 45.000,00</strong> já foi <strong>LIQUIDADA POR PAGAMENTO ANTECIPADO</strong> pela Empresa 01 (PRC Empreendimentos). A manutenção do lançamento aberto na Empresa 06 cria um risco gravíssimo de duplo pagamento (desembolso duplicado de R$ 45.000,00) agendado para a data limite de <strong>31/12/2026</strong>.
+                    </p>
+                </div>
+
+                <h3>Plano de Ação Corretiva para o Usuário (PCO / Gestor de Contratos)</h3>
+                <p>Ao se deparar com inconsistências como a descrita no alerta crítico da NFSE 19910, o operador deve adotar imediatamente o seguinte protocolo de solução:</p>
+                
+                <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">Etapa do Plano</th>
+                            <th style="width: 50%;">Ação Requerida do Operador</th>
+                            <th style="width: 25%;">Ferramenta / Responsável</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. Notificação Financeira</strong></td>
+                            <td>Clique no botão <strong>"Copiar Alerta"</strong> na caixa vermelha do aplicativo de auditoria. Esse comando copiará a inconsistência estruturada para a área de transferência. Envie os detalhes imediatamente via e-mail ou sistema de comunicação interna para a equipe de Contas a Pagar.</td>
+                            <td>App de Auditoria / Operador PCO</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Ajuste Financeiro</strong></td>
+                            <td>Acesse a tela de títulos do módulo Financeiro do Sienge e execute o ajuste do lançamento interno na Empresa 06 (NEST 635) para dar a devida baixa por compensação ou exclusão do lançamento duplicado, neutralizando o risco de desembolso no vencimento de 31/12/2026.</td>
+                            <td>ERP Sienge / Contas a Pagar</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Retenções e Compensação</strong></td>
+                            <td>Caso a liquidação por adiantamento na Empresa 01 tenha pendências de retenções técnicas, certifique-se de que os valores retidos foram devidamente provisionados e conciliados na SPE correspondente.</td>
+                            <td>ERP Sienge / Controladoria de Contratos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Encerramento do Alerta</strong></td>
+                            <td>Após realizar a correção no ERP Sienge e obter a confirmação do Contas a Pagar, retorne ao dashboard e clique no botão <strong>"Auditar / Marcar Lido"</strong> (ícone ✔️) do alerta correspondente para atualizar o status de conformidade do contrato.</td>
+                            <td>App de Auditoria / Engenheiro PCO</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight-box box-success">
+                    <strong>Entendendo a Diferença de Conciliação Consolidada:</strong>
+                    É normal ocorrer divergência entre o <strong>Saldo Contratual a Medir (R$ 190.000,00)</strong> e o total no <strong>Contas a Pagar Consolidado (R$ 374.494,43)</strong>. Essa diferença não é necessariamente um erro. O Contas a Pagar Consolidado é composto pelo saldo a medir futuro mais os compromissos de notas fiscais já emitidas de medições físicas passadas que possuem vencimento alongado ou retenções técnicas contratuais ativas. O app apresenta o detalhamento dessa abertura por CNPJ na seção de <em>Conciliação de Divergência</em> para fins de transparência fiscal.
+                </div>
+            </section>
+
+        </main>
+
+        <!-- RODAPÉ -->
+        <footer class="manual-footer">
+            <div class="footer-left">
+                <p>© 2026 - Controladoria Geral PRC Empreendimentos.</p>
+                <p>Auditoria de Contratos Sienge ERP - Versão Documental 1.0</p>
+            </div>
+            <div class="footer-right">
+                <p>Desenvolvido por <strong>Pedro Henrique Brasil Ribeiro</strong></p>
+                <p>Engenheiro Controller de obras (PCO)</p>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>

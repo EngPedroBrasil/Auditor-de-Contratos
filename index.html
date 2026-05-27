@@ -1,0 +1,365 @@
+<!--
+    Desenvolvido por Pedro Henrique Brasil Ribeiro - Engenheiro Controller de obras (PCO)
+    Programa: AuditoriaContratos
+-->
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuditoriaContratos - Dashboard de Controladoria</title>
+    
+    <!-- Google Fonts: Outfit (títulos) e Inter (textos) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons para ícones corporativos premium -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- PDF.js para extração de texto direto do PDF no navegador do usuário -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Top Progress Bar para feedbacks visuais -->
+    <div id="top-progress-bar" class="progress-bar-container">
+        <div class="progress-bar-fill"></div>
+    </div>
+
+    <!-- Header Principal -->
+    <header class="app-header no-print">
+        <div class="header-container">
+            <div class="header-logo">
+                <div class="logo-icon">
+                    <!-- Logo oficial da PRC Empreendimentos (Completo) -->
+                    <img src="logo.png" alt="PRC Empreendimentos" class="logo-img-crop">
+                </div>
+                <div class="logo-text">
+                    <h1>Auditoria<span>Contratos</span></h1>
+                    <p>Dashboard de Controladoria de Obras</p>
+                </div>
+            </div>
+            
+            <div class="header-actions">
+                <button id="theme-toggle" class="btn-icon" title="Alternar Tema (Escuro/Claro)">
+                    <i data-lucide="moon" class="theme-icon-dark"></i>
+                    <i data-lucide="sun" class="theme-icon-light"></i>
+                </button>
+                
+                <button id="btn-print" class="btn btn-secondary disabled" disabled>
+                    <i data-lucide="printer"></i>
+                    <span>Exportar PDF / Imprimir</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-container">
+        <!-- SEÇÃO 1: UPLOAD DUAL (EMPTY STATE) -->
+        <section id="upload-section" class="upload-section no-print">
+            <div class="section-card">
+                <div class="upload-header">
+                    <h2>Auditoria & Conciliação Automática</h2>
+                    <p>Faça o upload dos dois relatórios extraídos do Sienge ERP para cruzar os saldos contratuais, identificar duplicidades e gerar o painel de conformidade.</p>
+                </div>
+                
+                <div class="upload-grid">
+                    <!-- Drop Zone 1: Contrato -->
+                    <div class="upload-card" id="drop-zone-contract">
+                        <input type="file" id="file-contract" accept=".pdf,.txt,.csv,.json" hidden>
+                        <div class="upload-inner">
+                            <div class="upload-icon-wrapper contract-theme">
+                                <i data-lucide="file-text"></i>
+                            </div>
+                            <h3>Relatório de Análise de Contrato</h3>
+                            <p class="upload-instructions">Arraste e solte o PDF ou clique para selecionar</p>
+                            <span class="file-hint">Arquivo 1 (Contém saldos, itens e medições)</span>
+                            <div class="file-status-badge" id="status-contract">
+                                <span class="badge-waiting"><i data-lucide="clock"></i> Aguardando</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Drop Zone 2: Contas a Pagar -->
+                    <div class="upload-card" id="drop-zone-payments">
+                        <input type="file" id="file-payments" accept=".pdf,.txt,.csv,.json" hidden>
+                        <div class="upload-inner">
+                            <div class="upload-icon-wrapper payment-theme">
+                                <i data-lucide="credit-card"></i>
+                            </div>
+                            <h3>Contas a Pagar por Credor</h3>
+                            <p class="upload-instructions">Arraste e solte o PDF ou clique para selecionar</p>
+                            <span class="file-hint">Arquivo 2 (Contém faturamentos, notas e observações)</span>
+                            <div class="file-status-badge" id="status-payments">
+                                <span class="badge-waiting"><i data-lucide="clock"></i> Aguardando</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="upload-footer">
+                    <span class="or-separator">OU</span>
+                    <button id="btn-load-demo" class="btn btn-primary pulse">
+                        <i data-lucide="sparkles"></i>
+                        <span>Carregar Dados de Exemplo (Contrato CT/Aleatório)</span>
+                    </button>
+                    <p class="demo-disclaimer">Usa os arquivos de demonstração salvos no diretório "Modelo/" de forma automatizada.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- LOADING STATE ANIMADO -->
+        <section id="processing-section" class="processing-section hidden no-print">
+            <div class="loading-card">
+                <div class="spinner-container">
+                    <div class="loading-spinner"></div>
+                    <i data-lucide="file-search" class="spinner-icon"></i>
+                </div>
+                <h2>Auditando Documentos...</h2>
+                <p>O motor lógico inteligente está processando os dados e cruzando os faturamentos.</p>
+                
+                <div class="audit-checklist">
+                    <div class="check-item" id="check-1">
+                        <div class="check-bullet"><i data-lucide="loader-2" class="animate-spin"></i></div>
+                        <span>Extraindo textos e mapeando tabelas de itens...</span>
+                    </div>
+                    <div class="check-item" id="check-2">
+                        <div class="check-bullet"><i data-lucide="circle"></i></div>
+                        <span>Identificando saldo contratual residual e provisões (PCT)...</span>
+                    </div>
+                    <div class="check-item" id="check-3">
+                        <div class="check-bullet"><i data-lucide="circle"></i></div>
+                        <span>Agrupando Notas Fiscais por Empresa/CNPJ...</span>
+                    </div>
+                    <div class="check-item" id="check-4">
+                        <div class="check-bullet"><i data-lucide="circle"></i></div>
+                        <span>Rodando heurística de duplicidade e bloqueios de borderô...</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DASHBOARD CONTAINER (RERENDERIZADO DYNAMICAMENTE) -->
+        <div id="dashboard-content" class="dashboard-content hidden">
+            
+            <!-- SEÇÃO 1: HEADER & METADADOS -->
+            <section class="dashboard-header-panel">
+                <div class="report-meta-header">
+                    <div>
+                        <div class="badge badge-primary">Auditoria Finalizada</div>
+                        <h2 id="meta-contract-title" class="report-title">Relatório Consolidado de Controladoria: Contrato CT/139</h2>
+                        <p class="report-subtitle">
+                            <strong>Emissão:</strong> <span id="meta-date-emission">20/05/2026</span> | 
+                            <strong>Origem:</strong> SIENGE / SOFTPLAN / STARIAN
+                        </p>
+                    </div>
+                    <div class="status-indicator">
+                        <span class="status-dot green"></span>
+                        <span id="meta-status-text">Parcialmente Medido</span>
+                    </div>
+                </div>
+
+                <div class="meta-grid">
+                    <div class="meta-item-card">
+                        <div class="meta-item-icon"><i data-lucide="hash"></i></div>
+                        <div class="meta-item-content">
+                            <span>ID Contrato</span>
+                            <strong id="meta-contract-id">CT/139</strong>
+                        </div>
+                    </div>
+                    <div class="meta-item-card">
+                        <div class="meta-item-icon"><i data-lucide="users"></i></div>
+                        <div class="meta-item-content">
+                            <span>Fornecedor</span>
+                            <strong id="meta-supplier" title="3564 - RISSI FACHADAS E ESQUADRIAS LTDA">RISSI FACHADAS LTDA</strong>
+                        </div>
+                    </div>
+                    <div class="meta-item-card">
+                        <div class="meta-item-icon"><i data-lucide="file-digit"></i></div>
+                        <div class="meta-item-content">
+                            <span>CNPJ</span>
+                            <strong id="meta-cnpj" class="copyable" title="Clique para copiar">02.040.471/0001-59</strong>
+                        </div>
+                    </div>
+                    <div class="meta-item-card">
+                        <div class="meta-item-icon"><i data-lucide="building-2"></i></div>
+                        <div class="meta-item-content">
+                            <span>Obra / Centro de Custo</span>
+                            <strong id="meta-cost-center" title="82 - Nest 635 - Custos Diretos">Nest 635 - Empresa 06</strong>
+                        </div>
+                    </div>
+                    <div class="meta-item-card">
+                        <div class="meta-item-icon"><i data-lucide="layers"></i></div>
+                        <div class="meta-item-content">
+                            <span>Unidade Construtiva</span>
+                            <strong id="meta-uc">2 - TORRE</strong>
+                        </div>
+                    </div>
+                    <div class="meta-item-card">
+                        <div class="meta-item-icon"><i data-lucide="user-check"></i></div>
+                        <div class="meta-item-content">
+                            <span>Autorizado por</span>
+                            <strong id="meta-authorized" title="Matheus Katsuo Nakata Correa">Matheus Katsuo N.</strong>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 2: INDICADORES DE ALTO IMPACTO (KPI CARDS) -->
+            <section class="kpi-grid">
+                <div class="kpi-card total-value">
+                    <div class="kpi-header">
+                        <span>Valor Total do Contrato</span>
+                        <div class="kpi-icon-wrapper"><i data-lucide="dollar-sign"></i></div>
+                    </div>
+                    <div class="kpi-value" id="kpi-total">R$ 7.427.226,43</div>
+                    <div class="kpi-footer">
+                        <div class="progress-bar-mini">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                        <span>Valor original contratado</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card measured-value">
+                    <div class="kpi-header">
+                        <span>Total Já Medido</span>
+                        <div class="kpi-icon-wrapper success"><i data-lucide="trending-up"></i></div>
+                    </div>
+                    <div class="kpi-value" id="kpi-measured">R$ 7.268.345,16</div>
+                    <div class="kpi-footer">
+                        <div class="progress-bar-mini">
+                            <div class="progress-fill success" id="kpi-measured-percent-bar" style="width: 97.86%;"></div>
+                        </div>
+                        <span id="kpi-measured-percent">97.86% do contrato executado</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card balance-value">
+                    <div class="kpi-header">
+                        <span>Saldo Contratual a Medir</span>
+                        <div class="kpi-icon-wrapper warning"><i data-lucide="alert-circle"></i></div>
+                    </div>
+                    <div class="kpi-value" id="kpi-balance">R$ 158.881,27</div>
+                    <div class="kpi-footer">
+                        <div class="progress-bar-mini">
+                            <div class="progress-fill warning" id="kpi-balance-percent-bar" style="width: 2.14%;"></div>
+                        </div>
+                        <span id="kpi-balance-percent">2.14% residual a medir</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 5: PAINEL DE ALERTAS CRÍTICOS (Colocada no topo para destaque corporativo) -->
+            <section class="alerts-section">
+                <div class="section-title-wrapper">
+                    <div class="title-left">
+                        <i data-lucide="shield-alert" class="alert-icon-title"></i>
+                        <h3>Alertas Críticos de Controladoria</h3>
+                    </div>
+                    <span class="badge badge-danger" id="alerts-count">2 Ocorrências</span>
+                </div>
+                <div class="alerts-container" id="alerts-container-root">
+                    <!-- Gerado dinamicamente no JS -->
+                </div>
+            </section>
+
+            <!-- SEÇÃO 3: EVOLUÇÃO POR ITEM -->
+            <section class="evolution-section">
+                <div class="section-header-row no-print">
+                    <div class="title-left">
+                        <i data-lucide="bar-chart-3"></i>
+                        <h3>Evolução Contratual e Situação por Item</h3>
+                    </div>
+                    <div class="search-box-wrapper">
+                        <i data-lucide="search"></i>
+                        <input type="text" id="evolution-search" placeholder="Buscar item ou insumo...">
+                    </div>
+                </div>
+                
+                <div class="print-only">
+                    <h3>3. Evolução Contratual e Situação por Item</h3>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="table-items-evolution">
+                        <thead>
+                            <tr>
+                                <th>Item / Insumo</th>
+                                <th class="text-center">Un.</th>
+                                <th class="text-right">Preço Unitário</th>
+                                <th class="text-right">Qtd. Contrato</th>
+                                <th class="text-right">Valor Total</th>
+                                <th class="text-right">Valor Medido</th>
+                                <th class="text-right">Progresso</th>
+                                <th class="text-right">Saldo a Medir</th>
+                            </tr>
+                        </thead>
+                        <tbody id="evolution-table-body">
+                            <!-- Gerado dinamicamente pelo app.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div class="page-break print-only"></div>
+
+            <!-- SEÇÃO 4: PAINEL DE CONCILIAÇÃO FINANCEIRA -->
+            <section class="reconciliation-section">
+                <div class="section-header-row no-print">
+                    <div class="title-left">
+                        <i data-lucide="refresh-cw"></i>
+                        <h3>Conciliação de Divergência: Contrato vs. Contas a Pagar</h3>
+                    </div>
+                    <div class="info-tooltip">
+                        <i data-lucide="info"></i>
+                        <span>A divergência é causada pela inclusão de notas a vencer e retenções contratuais.</span>
+                    </div>
+                </div>
+
+                <div class="print-only">
+                    <h3>4. Conciliação de Divergência: Contrato vs. Contas a Pagar</h3>
+                    <p class="print-intro-text">A aparente incompatibilidade entre o <strong>Saldo Contratual (<span class="txt-balance">R$ 158.881,27</span>)</strong> e o total listado no <strong>Contas a Pagar (<span class="txt-payable">R$ 374.494,43</span>)</strong> deve-se ao fato de que o Contas a Pagar engloba o saldo a medir futuro mais os compromissos de notas fiscais já emitidas com vencimento alongado, divididos nos CNPJs do grupo:</p>
+                </div>
+
+                <div class="reconciliation-explanation no-print">
+                    <p>O <strong>Saldo Contratual (<span id="reconcile-contract-val">R$ 158.881,27</span>)</strong> difere do **Contas a Pagar Consolidado (<span id="reconcile-payable-val">R$ 374.494,43</span>)** porque este último engloba o saldo a medir futuro provisionado em aberto mais faturamentos de medições concluídas que possuem vencimentos alongados.</p>
+                </div>
+
+                <div class="companies-grid" id="companies-grid-root">
+                    <!-- Gerado dinamicamente pelo app.js -->
+                </div>
+
+                <!-- Consolidação de Valores -->
+                <div class="consolidated-footer-banner">
+                    <div class="consolidated-left">
+                        <i data-lucide="wallet"></i>
+                        <span>VALOR TOTAL CONSOLIDADO DO CONTAS A PAGAR:</span>
+                    </div>
+                    <div class="consolidated-right" id="reconcile-consolidated-total">
+                        R$ 374.494,43
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal ou Rodapé de Suporte -->
+    <footer class="app-footer no-print">
+        <div class="footer-container">
+            <div class="footer-left">
+                <p>&copy; 2026 - Controladoria Geral PRC Empreendimentos. Auditoria de Contratos Sienge ERP.</p>
+                <p class="developer-signature">Desenvolvido por Pedro Henrique Brasil Ribeiro - Engenheiro Controller de obras (PCO)</p>
+            </div>
+            <div class="footer-links">
+                <button id="btn-reset-app" class="btn-text text-danger hidden"><i data-lucide="rotate-ccw"></i> Reiniciar e limpar dados</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts da aplicação -->
+    <script src="app.js"></script>
+</body>
+</html>

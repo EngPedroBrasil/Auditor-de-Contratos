@@ -1,0 +1,336 @@
+Diretamente pelo chat, não consigo gerar um arquivo `.pdf` binário para você baixar. Porém, a forma mais prática e limpa de resolver isso é utilizando um arquivo **HTML formatado com estilos de impressão corporativos (CSS Print)**.
+
+Basta copiar o código abaixo, colar no seu bloco de notas, salvar com a extensão `.html` (ex: `relatorio_controladoria.html`) e abri-lo em qualquer navegador. Depois, pressione `Ctrl + P` (ou `Cmd + P` no Mac) e selecione a opção **"Salvar como PDF"**. O layout já está totalmente otimizado, com quebras de página automáticas e design executivo.
+
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório de Controladoria - Contrato CT/139</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #333;
+            line-height: 1.5;
+            margin: 40px;
+        }
+        h1 {
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+            padding-bottom: 10px;
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+        h2 {
+            color: #2563eb;
+            font-size: 18px;
+            margin-top: 30px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 5px;
+        }
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+            background-color: #f8fafc;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+        .meta-item strong {
+            color: #475569;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+        th {
+            background-color: #1e3a8a;
+            color: white;
+            text-align: left;
+            padding: 10px;
+            font-weight: 600;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        tr:nth-child(even) td {
+            background-color: #f8fafc;
+        }
+        .total-row td {
+            font-weight: bold;
+            background-color: #f1f5f9 !important;
+            border-top: 2px solid #94a3b8;
+            color: #0f172a;
+        }
+        .alert-box {
+            background-color: #fff7ed;
+            border-left: 4px solid #ea580c;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+        .alert-title {
+            font-weight: bold;
+            color: #c2410c;
+            margin-bottom: 5px;
+        }
+        @media print {
+            body { margin: 20px; font-size: 12px; }
+            .no-print { display: none; }
+            .page-break { page-break-before: always; }
+        }
+    </style>
+</head>
+<body>
+
+    [cite_start]<h1>Relatório Consolidado de Controladoria: Contrato CT/139 [cite: 1]</h1>
+    [cite_start]<p><strong>Data de Emissão:</strong> 20/05/2026 [cite: 12, 209] | [cite_start]<strong>Origem dos Dados:</strong> SIENGE / SOFTPLAN / STARIAN [cite: 13, 243]</p>
+
+    <h2>1. Dados Gerais do Contrato</h2>
+    <div class="meta-grid">
+        [cite_start]<div class="meta-item"><strong>Contrato:</strong> CT/139 [cite: 1]</div>
+        [cite_start]<div class="meta-item"><strong>Situação do Contrato:</strong> Parcialmente medido [cite: 2]</div>
+        [cite_start]<div class="meta-item"><strong>Fornecedor:</strong> 3564 - RISSI FACHADAS E ESQUADRIAS LTDA [cite: 2]</div>
+        [cite_start]<div class="meta-item"><strong>CNPJ:</strong> 02.040.471/0001-59 [cite: 6]</div>
+        [cite_start]<div class="meta-item"><strong>Centro de Custo:</strong> 82 - Nest 635 - Custos Diretos - Empresa 06 [cite: 2, 7]</div>
+        [cite_start]<div class="meta-item"><strong>Unidade Construtiva:</strong> 2 - TORRE [cite: 3]</div>
+        [cite_start]<div class="meta-item"><strong>Data do Contrato:</strong> 04/12/2023 [cite: 5]</div>
+        [cite_start]<div class="meta-item"><strong>Autorizado por:</strong> Matheus Katsuo Nakata Correa [cite: 2]</div>
+    </div>
+
+    <h2>2. Resumo Financeiro do Contrato (Visão Saldo Inicial)</h2>
+    <div class="meta-grid" style="grid-template-columns: 1fr 1fr 1fr; background-color: #eff6ff; border-color: #bfdbfe;">
+        [cite_start]<div class="meta-item"><strong>Valor Total Contrato:</strong><br><span style="font-size: 18px; color: #1e40af; font-weight: bold;">R$ 7.427.226,43 [cite: 43]</span></div>
+        [cite_start]<div class="meta-item"><strong>Total Já Medido:</strong><br><span style="font-size: 18px; color: #16a34a; font-weight: bold;">R$ 7.268.345,16 [cite: 43]</span></div>
+        [cite_start]<div class="meta-item"><strong>Saldo Contratual a Medir:</strong><br><span style="font-size: 18px; color: #dc2626; font-weight: bold;">R$ 158.881,27 [cite: 43]</span></div>
+    </div>
+
+    <h2>3. Evolução Contratual e Situação por Item</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Item / Insumo</th>
+                <th>Un.</th>
+                <th>Preço Unitário</th>
+                <th>Qtd. Contrato</th>
+                <th>Valor Total</th>
+                <th>Valor Medido</th>
+                <th>Saldo a Medir</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                [cite_start]<td><strong>01</strong> - Esquadrias de Alumínio [cite: 11]</td>
+                [cite_start]<td>un [cite: 11]</td>
+                [cite_start]<td>R$ 4.438.514,56 [cite: 11]</td>
+                [cite_start]<td>1,0000 [cite: 11]</td>
+                [cite_start]<td>R$ 4.438.514,56 [cite: 11]</td>
+                [cite_start]<td>R$ 4.438.514,56 [cite: 11]</td>
+                [cite_start]<td>R$ 0,00 [cite: 11]</td>
+            </tr>
+            <tr>
+                [cite_start]<td><strong>02</strong> - Vidro Structural Glazing [cite: 16]</td>
+                [cite_start]<td>vb [cite: 16]</td>
+                [cite_start]<td>R$ 1.580.130,70 [cite: 16]</td>
+                [cite_start]<td>1,0000 [cite: 16]</td>
+                [cite_start]<td>R$ 1.580.130,70 [cite: 16]</td>
+                [cite_start]<td>R$ 1.580.130,70 [cite: 16]</td>
+                [cite_start]<td>R$ 0,00 [cite: 16]</td>
+            </tr>
+            <tr>
+                [cite_start]<td><strong>03</strong> - Brise Metálico (Ferro/Inox) [cite: 16]</td>
+                [cite_start]<td>vb [cite: 16]</td>
+                [cite_start]<td>R$ 508.562,53 [cite: 16]</td>
+                [cite_start]<td>1,0000 [cite: 16]</td>
+                [cite_start]<td>R$ 508.562,53 [cite: 16]</td>
+                [cite_start]<td>R$ 508.562,53 [cite: 16]</td>
+                [cite_start]<td>R$ 0,00 [cite: 16]</td>
+            </tr>
+            <tr>
+                [cite_start]<td><strong>04</strong> - Chapa ACM (Fachada) [cite: 16]</td>
+                [cite_start]<td>un [cite: 16]</td>
+                [cite_start]<td>R$ 472.792,21 [cite: 16]</td>
+                [cite_start]<td>1,0000 [cite: 16]</td>
+                [cite_start]<td>R$ 472.792,21 [cite: 16]</td>
+                [cite_start]<td>R$ 472.792,21 [cite: 16]</td>
+                [cite_start]<td>R$ 0,00 [cite: 16]</td>
+            </tr>
+            <tr>
+                [cite_start]<td><strong>05</strong> - Aditivo Reajuste INCC [cite: 16, 23]</td>
+                [cite_start]<td>vb [cite: 23]</td>
+                [cite_start]<td>R$ 207.898,16 [cite: 23]</td>
+                [cite_start]<td>1,0000 [cite: 23]</td>
+                [cite_start]<td>R$ 207.898,16 [cite: 23]</td>
+                [cite_start]<td>R$ 198.302,98 [cite: 23]</td>
+                [cite_start]<td>R$ 9.595,18 [cite: 23]</td>
+            </tr>
+            <tr>
+                [cite_start]<td><strong>06</strong> - Aditivo Contrato CUB/SC [cite: 34]</td>
+                [cite_start]<td>vb [cite: 34]</td>
+                [cite_start]<td>R$ 158.089,58 [cite: 34]</td>
+                [cite_start]<td>1,0000 [cite: 34]</td>
+                [cite_start]<td>R$ 158.089,58 [cite: 34]</td>
+                [cite_start]<td>R$ 50.000,00 [cite: 34]</td>
+                [cite_start]<td>R$ 108.089,58 [cite: 34]</td>
+            </tr>
+            <tr>
+                [cite_start]<td><strong>07</strong> - Aditivo Esquadrias Térreo [cite: 34]</td>
+                [cite_start]<td>un [cite: 34]</td>
+                [cite_start]<td>R$ 23.140,58 [cite: 34]</td>
+                [cite_start]<td>1,0000 [cite: 34]</td>
+                [cite_start]<td>R$ 23.140,58 [cite: 34]</td>
+                [cite_start]<td>R$ 9.042,18 [cite: 34]</td>
+                [cite_start]<td>R$ 14.098,40 [cite: 34]</td>
+            </tr>
+            <tr>
+                [cite_start]<td><strong>08</strong> - Aditivo Alterações Térreo [cite: 34]</td>
+                [cite_start]<td>un [cite: 43]</td>
+                [cite_start]<td>R$ 23.118,00 [cite: 43]</td>
+                [cite_start]<td>0,0475 [cite: 43]</td>
+                [cite_start]<td>R$ 1.098,11 [cite: 43]</td>
+                [cite_start]<td>R$ 0,00 [cite: 43]</td>
+                [cite_start]<td>R$ 1.098,11 [cite: 43]</td>
+            </tr>
+            <tr>
+                [cite_start]<td><strong>09</strong> - Aditivo Guarda Corpo Torre [cite: 43]</td>
+                [cite_start]<td>un [cite: 43]</td>
+                [cite_start]<td>R$ 37.000,00 [cite: 43]</td>
+                [cite_start]<td>1,0000 [cite: 43]</td>
+                [cite_start]<td>R$ 37.000,00 [cite: 43]</td>
+                [cite_start]<td>R$ 11.000,00 [cite: 43]</td>
+                [cite_start]<td>R$ 26.000,00 [cite: 43]</td>
+            </tr>
+            <tr class="total-row">
+                <td colspan="4">TOTAIS DO CONTRATO</td>
+                [cite_start]<td>R$ 7.427.226,43 [cite: 43]</td>
+                [cite_start]<td>R$ 7.268.345,16 [cite: 43]</td>
+                [cite_start]<td>R$ 158.881,27 [cite: 43]</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h2>4. Conciliação de Divergência: Contrato vs. Contas a Pagar</h2>
+    [cite_start]<p>A aparente incompatibilidade entre o <strong>Saldo Contratual (R$ 158.881,27) [cite: 43][cite_start]</strong> e o total listado no <strong>Contas a Pagar (R$ 374.494,43) [cite: 255]</strong> deve-se ao fato de que o Contas a Pagar engloba o saldo a medir futuro mais os compromissos de notas fiscais já emitidas com vencimento alongado, divididos em dois CNPJs do grupo:</p>
+
+    <h3>A. [cite_start]Detalhamento na Empresa 06 (Nest 635 - Custos Diretos) - Total Líquido: R$ 330.881,27 [cite: 254]</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Documento</th>
+                <th>Origem / Tipo</th>
+                <th>Vencimento</th>
+                <th>Valor Bruto</th>
+                <th>Retenções (Impostos)</th>
+                <th>Valor Líquido</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>PCT. [cite_start]139</strong> [cite: 249]</td>
+                <td>Provisão Automática (Saldo a Medir)</td>
+                [cite_start]<td>30/09/2026 [cite: 249]</td>
+                [cite_start]<td>R$ 158.881,27 [cite: 249]</td>
+                <td>R$ 0,00</td>
+                [cite_start]<td><strong>R$ 158.881,27</strong> [cite: 249]</td>
+            </tr>
+            <tr>
+                <td><strong>NFSE. [cite_start]18986-6</strong> [cite: 249]</td>
+                [cite_start]<td>Faturamento Medição 26 [cite: 249]</td>
+                [cite_start]<td>31/12/2026 [cite: 249]</td>
+                [cite_start]<td>R$ 100.000,00 [cite: 249]</td>
+                [cite_start]<td>R$ 14.000,00 [cite: 249]</td>
+                [cite_start]<td><strong>R$ 86.000,00</strong> [cite: 249]</td>
+            </tr>
+            <tr>
+                <td><strong>NFSE. [cite_start]19013-6</strong> [cite: 249]</td>
+                [cite_start]<td>Faturamento Medição 27 [cite: 249]</td>
+                [cite_start]<td>31/12/2026 [cite: 249]</td>
+                [cite_start]<td>R$ 50.000,00 [cite: 249]</td>
+                [cite_start]<td>R$ 7.000,00 [cite: 249]</td>
+                [cite_start]<td><strong>R$ 43.000,00</strong> [cite: 249]</td>
+            </tr>
+            <tr>
+                <td><strong>NFSE. [cite_start]19910-6</strong> [cite: 249]</td>
+                [cite_start]<td>Faturamento Medição 28 [cite: 249]</td>
+                [cite_start]<td>31/12/2026 [cite: 249]</td>
+                [cite_start]<td>R$ 50.000,00 [cite: 249]</td>
+                [cite_start]<td>R$ 7.000,00 [cite: 249]</td>
+                [cite_start]<td><strong>R$ 43.000,00</strong> [cite: 249]</td>
+            </tr>
+            <tr class="total-row">
+                <td colspan="3">SUBTOTAL EMPRESA 06</td>
+                [cite_start]<td>R$ 358.881,27 [cite: 251]</td>
+                [cite_start]<td>R$ 28.000,00 [cite: 253]</td>
+                [cite_start]<td>R$ 330.881,27 [cite: 254]</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>B. [cite_start]Detalhamento na Empresa 01 (PRC Empreendimentos) - Total Líquido: R$ 43.613,16 [cite: 230]</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Documento</th>
+                <th>Origem / Tipo</th>
+                <th>Vencimento</th>
+                <th>Valor Bruto</th>
+                <th>Retenções</th>
+                <th>Valor Líquido</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>NFSE. [cite_start]19910</strong> [cite: 217]</td>
+                <td>Lançamento Manual (Medição 28)</td>
+                [cite_start]<td>31/12/2026 [cite: 220]</td>
+                [cite_start]<td>R$ 50.000,00 [cite: 221]</td>
+                [cite_start]<td>R$ 7.000,00 [cite: 223]</td>
+                [cite_start]<td><strong>R$ 43.000,00</strong> [cite: 224]</td>
+            </tr>
+            <tr>
+                <td><strong>NFE. [cite_start]25961</strong> [cite: 210]</td>
+                <td>Nota Manual de Materiais</td>
+                [cite_start]<td>20/06/2026 [cite: 210]</td>
+                [cite_start]<td>R$ 613,16 [cite: 210]</td>
+                <td>R$ 0,00</td>
+                [cite_start]<td><strong>R$ 613,16</strong> [cite: 210]</td>
+            </tr>
+            <tr class="total-row">
+                <td colspan="3">SUBTOTAL EMPRESA 01</td>
+                [cite_start]<td>R$ 50.613,16 [cite: 227]</td>
+                [cite_start]<td>R$ 7.000,00 [cite: 229]</td>
+                [cite_start]<td>R$ 43.613,16 [cite: 230]</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="margin-top: 20px; font-weight: bold; background-color: #e2e8f0; padding: 12px; border-radius: 4px; font-size: 14px;">
+        [cite_start]VALOR TOTAL CONSOLIDADO DO CONTAS A PAGAR: R$ 374.494,43 [cite: 255]
+    </div>
+
+    <h2>5. Alertas Críticos de Controladoria</h2>
+    
+    <div class="alert-box">
+        <div class="alert-title">⚠️ ALERTA DE DUPLICIDADE: NFSE 19910 (MEDIÇÃO 28)</div>
+        [cite_start]A <strong>Medição 28 (NFSE 19910)</strong> está gerando impacto duplo no contas a pagar geral: em aberto na Empresa 06 (R$ 43.000,00) [cite: 249] [cite_start]e também na Empresa 01 (R$ 43.000,00)[cite: 224]. [cite_start]O relatório aponta textualmente que o valor foi <strong>LIQUIDADO POR PAGAMENTO ANTECIPADO</strong> pela Empresa 01[cite: 225]. 
+        <br><strong>Ação Necessária:</strong> Ajustar o lançamento interno na Empresa 06 para dar a baixa e evitar risco de duplo pagamento em 31/12/2026.
+    </div>
+
+    <div class="alert-box" style="background-color: #fef2f2; border-left-color: #ef4444;">
+        <div class="alert-title" style="color: #991b1b;">⚠️ RETENÇÃO DE SEGURANÇA: NFE 25961</div>
+        Há uma instrução explícita no sistema Sienge para o documento NFE. [cite_start]25961 (R$ 613,16) [cite: 210][cite_start]: <strong>"NÃO EFETUAR O PAGAMENTO ATÉ O FECHAMENTO DO CONTRATO" [cite: 212]</strong>.
+        [cite_start]<br><strong>Ação Necessária:</strong> Garantir que o financeiro mantenha este borderô bloqueado até a entrega e medição final do saldo do contrato (PCT. 139)[cite: 249].
+    </div>
+
+</body>
+</html>
+
+```

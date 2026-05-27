@@ -1,0 +1,23 @@
+🚀 INOVAÇÃO E GOVERNANÇA NA CONTROLADORIA DE OBRAS: Desenvolvi o AuditoriaContratos para a PRC Empreendimentos!
+
+A conciliação físico-financeira de contratos de obras é um dos maiores desafios que enfrentamos na controladoria da construção civil. No meu dia a dia como Engenheiro Controller de Obras (PCO) na PRC Empreendimentos, sei bem como auditar manualmente saldos contratuais, medições físicas, adiantamentos e notas fiscais emitidas em diferentes SPEs (Sociedades de Propósito Específico) pode ser um processo exaustivo, lento e suscetível a erros operacionais.
+
+Para elevar nosso patamar de governança corporativa e eficiência operacional, decidi criar uma solução sob medida: o AuditoriaContratos!
+
+💡 Como o sistema funciona na prática?
+Estruturei a plataforma para operar de forma direta e extremamente simples:
+1️⃣ Eu extraio em PDF os relatórios de Análise de Contrato e de Contas a Pagar diretamente do ERP Sienge.
+2️⃣ Com um simples arrastar-e-soltar (Drag & Drop), o motor lógico que desenvolvi consolida e faz a leitura cruzada das medições com faturamentos de múltiplos CNPJs do grupo.
+3️⃣ Em poucos segundos, o dashboard cruza as informações físicas da obra com os cronogramas de faturamento financeiro.
+
+🛠️ Funcionalidades principais que implementei:
+📌 Visão Geral de Saldos (KPIs): Exibição do valor total contratado, percentual de execução física executada e o saldo residual a medir em tempo real.
+📌 Evolução Física por Insumo: Acompanhamento unitário de cada item do contrato (como esquadrias, concreto, fundações), facilitando a gestão física do canteiro.
+📌 Alertas Críticos de Controladoria: Uma heurística preventiva para identificar imediatamente duplicidades de faturamento (como Notas Fiscais lançadas em duplicidade em SPEs diferentes) ou pagamentos antecipados sem medição física correspondente.
+📌 Conciliação de Divergências: Detalhamento dinâmico que separa o saldo real físico a medir dos compromissos vigentes de faturamento futuro (retenções contratuais, parcelas alongadas).
+
+O resultado prático? Saneamento preventivo de desvios fiscais, mitigação absoluta do risco de duplo pagamento e a garantia de que nossa equipe foca na tomada de decisões estratégicas em vez de gastar horas conferindo relatórios manuais.
+
+Tenho muito orgulho de ver essa ferramenta rodando e gerando valor real para a PRC Empreendimentos, consolidando nosso compromisso com a tecnologia aplicada, inovação e rigor financeiro de ponta a ponta nas nossas obras!
+
+#ConstrucaoCivil #ControladoriaDeObras #PropTech #ConTech #Inovacao #GestaoDeProjetos #Sienge #PRCEmpreendimentos #PCO #FinancasCorporativas #EficienciaOperacional
