@@ -398,6 +398,27 @@
                 text-align: center;
             }
         }
+
+        /* Imagens Ilustrativas do Manual */
+        .manual-screenshot {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 18px rgba(61, 48, 58, 0.08);
+            border: 1px solid rgba(49, 183, 188, 0.2);
+            margin: 20px auto 10px auto;
+            display: block;
+        }
+        
+        .screenshot-caption {
+            font-size: 13px;
+            color: #777;
+            text-align: center;
+            margin-top: 5px;
+            margin-bottom: 25px;
+            font-style: italic;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -454,18 +475,24 @@
                         Esta etapa extrai o saldo físico do contrato, o escopo contratado, os preços unitários e as medições físicas já aprovadas na obra.
                     </p>
                     <ol>
-                        <li>Acesse o caminho indicado acima no menu lateral do Sienge.</li>
+                        <li>Acesse o caminho indicado acima no menu lateral do Sienge.
+                            <img class="manual-screenshot" src="Manual/1.png" alt="Navegação Sienge Suprimentos">
+                            <span class="screenshot-caption">Figura 1: Módulo Suprimentos &gt; Contratos e Medições &gt; Contratos &gt; Cadastros no Sienge.</span>
+                        </li>
                         <li>No painel de <strong>Consulta de Contratos</strong>, preencha os filtros obrigatórios e de segurança:
                             <ul>
                                 <li><strong>Documento:</strong> Selecione <code>CT - CONTRATO</code>.</li>
                                 <li><strong>Fornecedor:</strong> Digite o código do fornecedor (ex: <code>3564</code>) ou busque por <code>RISSI FACHADAS E ESQUADRIAS LTDA</code>.</li>
                                 <li><strong>Data Inicial:</strong> Configure para <code>01/01/2021</code>.</li>
-                                <li><strong>Data Final (Margem Ampla):</strong> Insira um prazo futuro estendido, como <code>23/10/2029</code>, para garantir que medições com cronograma alongado ou aditivos futuros não sejam omitidas da busca.</li>
+                                <li><strong>Data Final (Margem Ampla):</strong> Insira um prazo futuro estendido, como <code>23/10/2029</code>, para garantir que aditivos ou medições com cronograma alongado não fiquem de fora.</li>
                                 <li><strong>Situação de autorização dos contratos:</strong> Defina como <code>Todos</code>.</li>
                             </ul>
                         </li>
                         <li>Clique no botão <strong>CONSULTAR</strong> no canto direito da tela de filtros.</li>
-                        <li>Na tabela de resultados, localize o contrato desejado (ex: <code>CT/139</code>). Na coluna de <strong>Ações</strong>, clique no segundo ícone: <strong>Emitir relatório de análise do contrato</strong> (ícone de folha de papel com gráfico).</li>
+                        <li>Na tabela de resultados, localize o contrato correspondente (ex: <code>CT/139</code>). Na coluna de <strong>Ações</strong>, clique no segundo ícone: <strong>Emitir relatório de análise do contrato</strong> (conforme destacado abaixo).
+                            <img class="manual-screenshot" src="Manual/2.png" alt="Ações na tabela do Sienge">
+                            <span class="screenshot-caption">Figura 2: Identificação da linha do contrato e seleção do ícone de Relatório de Análise.</span>
+                        </li>
                         <li>Salve o arquivo gerado em formato <strong>PDF</strong> no seu computador.</li>
                     </ol>
                     <div class="highlight-box box-info">
@@ -482,13 +509,18 @@
                         Esta etapa extrai a rastreabilidade fiscal e financeira, identificando as Notas Fiscais emitidas, retenções técnicas, impostos retidos e parcelas pagas ou a pagar.
                     </p>
                     <ol>
-                        <li>Acesse o menu do módulo Financeiro conforme o caminho indicado.</li>
+                        <li>Acesse o menu do módulo Financeiro conforme o caminho indicado.
+                            <img class="manual-screenshot" src="Manual/3.png" alt="Navegação Sienge Financeiro">
+                            <span class="screenshot-caption">Figura 3: Acesso ao Módulo Financeiro &gt; Contas a Pagar &gt; Relatórios &gt; Contas a Pagar no Sienge.</span>
+                        </li>
                         <li>Na tela <strong>RELATÓRIO DE CONTAS A PAGAR</strong>, configure os parâmetros de controle:
                             <ul>
-                                <li><strong>Vencimento (Parâmetro Crítico):</strong> Insira uma margem extremamente ampla e retroativa, por exemplo, de <code>01/05/2020</code> a <code>31/05/2029</code>. Isso é vital para que o motor do app de auditoria rastreie adiantamentos financeiros antigos e notas com vencimentos muito alongados.</li>
-                                <li><strong>Credor:</strong> Digite o mesmo código de fornecedor do passo anterior (ex: <code>3564</code>) para carregar <code>RISSI FACHADAS E ESQUADRIAS LTDA</code>.</li>
+                                <li><strong>Vencimento (Parâmetro Crítico):</strong> Insira uma margem de segurança preventiva extremamente ampla (ex: <code>01/05/2020</code> a <code>31/05/2029</code>) para englobar todas as parcelas históricas, futuras e eventuais adiantamentos.</li>
+                                <li><strong>Credor:</strong> Digite o mesmo código de fornecedor do passo anterior (ex: <code>3564</code>) para carregar o credor correspondente.</li>
                                 <li><strong>Ordem:</strong> Mude obrigatoriamente para a opção <code>Credor</code> no campo de ordenação.</li>
                             </ul>
+                            <img class="manual-screenshot" src="Manual/4.png" alt="Parametrização do Contas a Pagar">
+                            <span class="screenshot-caption">Figura 4: Preenchimento de margem ampla de vencimento, credor e ordenação por Credor.</span>
                         </li>
                         <li>Clique no botão <strong>VISUALIZAR</strong> para gerar o relatório consolidado na tela e, em seguida, exporte ou salve o arquivo em formato <strong>PDF</strong>.</li>
                         <li>Salve o arquivo PDF gerado em uma pasta local de fácil acesso.</li>
@@ -515,6 +547,8 @@
                                 <li><strong>Painel Esquerdo (Relatório de Análise de Contrato):</strong> Arraste e solte o arquivo <strong>PDF</strong> extraído no Passo 1 (ou clique no card para selecionar). O sistema identificará os dados de saldos, itens e medições físicas.</li>
                                 <li><strong>Painel Direito (Contas a Pagar por Credor):</strong> Arraste e solte o arquivo <strong>PDF</strong> extraído no Passo 2. O sistema mapeará faturamentos, notas fiscais e retenções de compromissos. (Nota: O suporte a planilhas no formato <strong>CSV</strong> está planejado para uma versão futura do sistema).</li>
                             </ul>
+                            <img class="manual-screenshot" src="Manual/5.png" alt="Interface de upload do App de Auditoria">
+                            <span class="screenshot-caption">Figura 5: Tela inicial de upload dual de documentos no painel AuditoriaContratos.</span>
                         </li>
                         <li><strong>Aguarde a validação:</strong> O status de cada painel mudará de <em>"Aguardando"</em> para <em>"Processado com Sucesso"</em>.</li>
                     </ol>
@@ -539,6 +573,8 @@
                                 <li><strong>Total Já Medido (R$ 7.350.000,00):</strong> Aponta que <strong>97.48%</strong> do escopo físico das esquadrias já foi medido, conferido e aprovado pela engenharia de campo.</li>
                                 <li><strong>Saldo Contratual a Medir (R$ 190.000,00):</strong> Mostra o valor residual e limite físico-financeiro de <strong>2.52%</strong> que ainda resta a ser executado na obra.</li>
                             </ul>
+                            <img class="manual-screenshot" src="Manual/6.png" alt="Painel Consolidado de Resultados">
+                            <span class="screenshot-caption">Figura 6: Relatório Consolidado gerado pelo App com os KPIs de saldos e os alertas críticos de duplicidade no rodapé.</span>
                         </li>
                     </ol>
                 </div>
